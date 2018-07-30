@@ -25,7 +25,8 @@ namespace Ordering.API.Controllers
             return Ok(await _repository.GetOrdersAsync());
         }
 
-        [HttpPost]
+        [Route("{orderId:int}")]
+        [HttpGet]
         public async Task<IActionResult> GetOrder(string orderId)
         {
             try
@@ -57,7 +58,7 @@ namespace Ordering.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> UpdateOrder(Order order)
         {
             try
@@ -73,7 +74,7 @@ namespace Ordering.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> DeleteOrder(string orderId)
         {
             try
