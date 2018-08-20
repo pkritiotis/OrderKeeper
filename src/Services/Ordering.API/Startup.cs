@@ -40,6 +40,8 @@ namespace Ordering.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMvcWithDefaultRoute();
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -49,6 +51,7 @@ namespace Ordering.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderKeeper Order API V1");
             });
+
             app.UseMvc();
 
         }
