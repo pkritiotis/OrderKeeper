@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7A97605A-D5E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{6EEA435A-3EC4-4322-90C5-90401089B11A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "src\Services\Ordering.API\Ordering.API.csproj", "{B6EBFE10-CA62-4EC3-9F5A-3AF21CA9FF0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.API", "src\Services\Ordering.API\Ordering.API.csproj", "{B6EBFE10-CA62-4EC3-9F5A-3AF21CA9FF0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "src\Services\Identity.API\Identity.API.csproj", "{84C29A3A-7FC9-4F14-A30D-FB98BD711BAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{B6EBFE10-CA62-4EC3-9F5A-3AF21CA9FF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6EBFE10-CA62-4EC3-9F5A-3AF21CA9FF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6EBFE10-CA62-4EC3-9F5A-3AF21CA9FF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C29A3A-7FC9-4F14-A30D-FB98BD711BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C29A3A-7FC9-4F14-A30D-FB98BD711BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C29A3A-7FC9-4F14-A30D-FB98BD711BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C29A3A-7FC9-4F14-A30D-FB98BD711BAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6EEA435A-3EC4-4322-90C5-90401089B11A} = {7A97605A-D5E3-45F0-B085-963040A07715}
 		{B6EBFE10-CA62-4EC3-9F5A-3AF21CA9FF0B} = {6EEA435A-3EC4-4322-90C5-90401089B11A}
+		{84C29A3A-7FC9-4F14-A30D-FB98BD711BAC} = {6EEA435A-3EC4-4322-90C5-90401089B11A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8D2B7D8-C2CB-4A5D-9718-DF300E14D0B2}

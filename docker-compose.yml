@@ -9,3 +9,10 @@ services:
       context: .
       dockerfile: src\Services\Ordering.API\Dockerfile
 
+
+  identity.api:
+    image: ${DOCKER_REGISTRY}identityapi
+    build:
+      context: .
+      dockerfile: src\Services\Identity.API\Dockerfile
+
