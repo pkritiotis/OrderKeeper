@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Identity.API.Model;
+using Identity.API.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +35,7 @@ namespace Identity.API
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-             options.UseSqlServer(Configuration["ConnectionString"],
+             options.UseSqlServer(Configuration[Constant.Configurations.Database.ConnectionString],
                                      sqlServerOptionsAction: sqlOptions =>
                                      {
                                          sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
@@ -64,16 +65,16 @@ namespace Identity.API
                     cfg.SaveToken = true;
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = Configuration["JwtIssuer"],
-                        ValidAudience = Configuration["JwtIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
+                        ValidIssuer = Configuration[Constant.Configurations.Jwt.Issuer],
+                        ValidAudience = Configuration[Constant.Configurations.Jwt.Issuer],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration[Constant.Configurations.Jwt.Key])),
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "OrderKeeper Identity API", Version = "v1" });
+                c.SwaggerDoc(Constant.Swagger.Version, new Info { Title = Constant.Swagger.Title, Version = Constant.Swagger.Version });
             });
 
         }
@@ -94,7 +95,7 @@ namespace Identity.API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderKeeper Identity API V1");
+                c.SwaggerEndpoint(Constant.Swagger.Endpoint, Constant.Swagger.Title);
             });
             applicationDbContext.Database.EnsureCreated();
         }

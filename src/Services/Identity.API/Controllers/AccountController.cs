@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Identity.API.Model;
+using Identity.API.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -76,13 +77,13 @@ namespace Identity.API.Controllers
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration[Constant.Configurations.Jwt.Key]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JwtExpireDays"]));
+            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration[Constant.Configurations.Jwt.ExpireDays]));
 
             var token = new JwtSecurityToken(
-                _configuration["JwtIssuer"],
-                _configuration["JwtIssuer"],
+                _configuration[Constant.Configurations.Jwt.Issuer],
+                _configuration[Constant.Configurations.Jwt.Issuer],
                 claims,
                 expires: expires,
                 signingCredentials: creds
