@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Identity.API.Configuration;
 using Identity.API.Model;
+using Identity.API.Model.AccountViewModels;
 using Identity.API.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -37,7 +38,7 @@ namespace Identity.API.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model)
+        public async Task<object> Login([FromBody] LoginViewModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
@@ -47,11 +48,11 @@ namespace Identity.API.Controllers
                 return await GenerateJwtToken(model.Email, appUser);
             }
 
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            throw new ApplicationException(result.ToString());
         }
 
         [HttpPost]
-        public async Task<object> Register([FromBody] RegisterDto model)
+        public async Task<object> Register([FromBody] RegisterViewModel model)
         {
             var user = new ApplicationUser
             {
@@ -66,7 +67,7 @@ namespace Identity.API.Controllers
                 return await GenerateJwtToken(model.Email, user);
             }
 
-            throw new ApplicationException("UNKNOWN_ERROR");
+            throw new ApplicationException(result.ToString());
         }
 
         private async Task<object> GenerateJwtToken(string email, IdentityUser user)
@@ -91,26 +92,6 @@ namespace Identity.API.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public class LoginDto
-        {
-            [Required]
-            public string Email { get; set; }
-
-            [Required]
-            public string Password { get; set; }
-
-        }
-
-        public class RegisterDto
-        {
-            [Required]
-            public string Email { get; set; }
-
-            [Required]
-            [StringLength(100, ErrorMessage = "PASSWORD_MIN_LENGTH", MinimumLength = 6)]
-            public string Password { get; set; }
         }
     }
 }
