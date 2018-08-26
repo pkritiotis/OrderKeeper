@@ -51,9 +51,6 @@ namespace Ordering.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderKeeper Order API V1");
             });
-
-            app.UseMvc();
-
         }
     }
 }
