@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Identity.API.Configuration;
 using Identity.API.Model;
 using Identity.API.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,19 +24,25 @@ namespace Identity.API
 {
     public class Startup
     {
+
+        public IConfiguration Configuration { get; }
+        private DatabaseConfiguration DbConfiguration { get;}
+        private JwtConfiguration JwtConfiguration{ get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            JwtConfiguration = new JwtConfiguration();
+            DbConfiguration = new DatabaseConfiguration();
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            InitializeConfigurations(services);
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-             options.UseSqlServer(Configuration[Constant.Configurations.Database.ConnectionString],
+             options.UseSqlServer(DbConfiguration.ConnectionString,
                                      sqlServerOptionsAction: sqlOptions =>
                                      {
                                          sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
@@ -65,9 +72,9 @@ namespace Identity.API
                     cfg.SaveToken = true;
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = Configuration[Constant.Configurations.Jwt.Issuer],
-                        ValidAudience = Configuration[Constant.Configurations.Jwt.Issuer],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration[Constant.Configurations.Jwt.Key])),
+                        ValidIssuer = JwtConfiguration.Issuer,
+                        ValidAudience = JwtConfiguration.Issuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConfiguration.Key)),
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });
@@ -77,6 +84,15 @@ namespace Identity.API
                 c.SwaggerDoc(Constant.Swagger.Version, new Info { Title = Constant.Swagger.Title, Version = Constant.Swagger.Version });
             });
 
+        }
+
+        private void InitializeConfigurations(IServiceCollection services)
+        {
+            Configuration.GetSection("Database").Bind(DbConfiguration);
+            services.AddSingleton(DbConfiguration);
+
+            Configuration.GetSection("Jwt").Bind(JwtConfiguration);
+            services.AddSingleton(JwtConfiguration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

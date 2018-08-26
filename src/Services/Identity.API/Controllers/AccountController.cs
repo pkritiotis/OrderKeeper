@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Identity.API.Configuration;
 using Identity.API.Model;
 using Identity.API.Utils;
 using Microsoft.AspNetCore.Http;
@@ -22,17 +23,17 @@ namespace Identity.API.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly JwtConfiguration _jwtConfiguration;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration
+            JwtConfiguration jwtConfiguration
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _configuration = configuration;
+            _jwtConfiguration = jwtConfiguration;
         }
 
         [HttpPost]
@@ -77,13 +78,13 @@ namespace Identity.API.Controllers
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration[Constant.Configurations.Jwt.Key]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfiguration.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration[Constant.Configurations.Jwt.ExpireDays]));
+            var expires = DateTime.Now.AddDays(Convert.ToDouble(_jwtConfiguration.ExpireDays));
 
             var token = new JwtSecurityToken(
-                _configuration[Constant.Configurations.Jwt.Issuer],
-                _configuration[Constant.Configurations.Jwt.Issuer],
+                _jwtConfiguration.Issuer,
+                _jwtConfiguration.Issuer,
                 claims,
                 expires: expires,
                 signingCredentials: creds
