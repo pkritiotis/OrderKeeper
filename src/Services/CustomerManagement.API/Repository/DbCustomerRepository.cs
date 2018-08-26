@@ -1,11 +1,12 @@
-﻿using System;
+﻿using CustomerManagement.API.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CustomerManagement.API.Model
+namespace CustomerManagement.API.Repository
 {
-    public class CustomerRepository : ICustomerRepository
+    public class DbCustomerRepository : ICustomerRepository
     {
         public Task<Customer> AddCustomerAsync(Customer customer)
         {

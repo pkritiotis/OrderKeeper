@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using CustomerManagement.API.Configuration;
 using CustomerManagement.API.Model;
+using CustomerManagement.API.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -23,16 +26,18 @@ namespace CustomerManagement.API
         {
             Configuration = configuration;
             JwtConfiguration = new JwtConfiguration();
+            DbConfiguration = new DatabaseConfiguration();
         }
 
         public IConfiguration Configuration { get; }
         private JwtConfiguration JwtConfiguration { get; }
+        private DatabaseConfiguration DbConfiguration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Configuration.GetSection("Jwt").Bind(JwtConfiguration);
-            services.AddSingleton(JwtConfiguration);
+            InitializeConfigurations(services);
+
             services.AddMvc();
             services.AddAuthentication(options =>
              {
@@ -58,11 +63,21 @@ namespace CustomerManagement.API
             {
                 c.SwaggerDoc("v1", new Info { Title = "OrderKeeper Customer Management API", Version = "v1" });
             });
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddDbContext<CustomerContext>(options =>
+            {
+                options.UseSqlServer(DbConfiguration.ConnectionString,
+                                     sqlServerOptionsAction: sqlOptions =>
+                                     {
+                                         sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                                         sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                                     });
+
+            });
+            services.AddScoped<ICustomerRepository, DbCustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, CustomerContext customerContext)
         {
             if (env.IsDevelopment())
             {
@@ -81,7 +96,15 @@ namespace CustomerManagement.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderKeeper Customer Management API V1");
             });
+            customerContext.Database.EnsureCreated();
+        }
+        private void InitializeConfigurations(IServiceCollection services)
+        {
+            Configuration.GetSection("Database").Bind(DbConfiguration);
+            services.AddSingleton(DbConfiguration);
 
+            Configuration.GetSection("Jwt").Bind(JwtConfiguration);
+            services.AddSingleton(JwtConfiguration);
         }
     }
 }
