@@ -96,7 +96,6 @@ namespace CustomerManagement.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderKeeper Customer Management API V1");
             });
-            customerContext.Database.EnsureCreated();
         }
         private void InitializeConfigurations(IServiceCollection services)
         {
