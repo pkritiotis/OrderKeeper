@@ -1,4 +1,5 @@
 ﻿using CustomerManagement.API.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +9,43 @@ namespace CustomerManagement.API.Repository
 {
     public class DbCustomerRepository : ICustomerRepository
     {
-        public Task<Customer> AddCustomerAsync(Customer customer)
+        private CustomerContext _customerContext;
+
+        public DbCustomerRepository(CustomerContext customerContext)
         {
-            throw new NotImplementedException();
+            _customerContext = customerContext;
+        }
+        public async Task<Customer> AddCustomerAsync(Customer customer)
+        {
+            var customerResult = await _customerContext.AddAsync(customer);
+            await _customerContext.SaveChangesAsync();
+            return customerResult.Entity;
         }
 
-        public Task<bool> DeleteCustomerAsync(string customerId)
+        public async Task<bool> DeleteCustomerAsync(string customerId)
         {
-            throw new NotImplementedException();
+            var customer = new Customer { Id = 1 };
+            _customerContext.Customer.Attach(customer);
+            _customerContext.Customer.Remove(customer);
+            return await _customerContext.SaveChangesAsync() >0;
         }
 
-        public Task<Customer> GetCustomerAsync(string customerId)
+        public async Task<Customer> GetCustomerAsync(int customerId)
         {
-            throw new NotImplementedException();
+            return await _customerContext.Customer.SingleAsync(c => c.Id == customerId);
         }
 
-        public Task<IEnumerable<Customer>> GetCustomersAsync()
+        public async Task<IEnumerable<Customer>> GetCustomersAsync()
         {
-            throw new NotImplementedException();
+            return await _customerContext.Customer.ToListAsync();
         }
 
-        public Task<Customer> UpdateCustomerAsync(Customer customer)
+        public async Task<Customer> UpdateCustomerAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            _customerContext.Customer.Attach(customer);
+            _customerContext.Customer.Update(customer);
+            await _customerContext.SaveChangesAsync();
+            return customer;
         }
     }
 }

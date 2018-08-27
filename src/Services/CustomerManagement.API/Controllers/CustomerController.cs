@@ -28,7 +28,7 @@ namespace CustomerManagement.API.Controllers
 
         [Route("{CustomerId:int}")]
         [HttpGet]
-        public async Task<IActionResult> GetCustomer(string CustomerId)
+        public async Task<IActionResult> GetCustomer(int CustomerId)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace CustomerManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCustomer(Customer Customer)
+        public async Task<IActionResult> AddCustomer([FromBody]Customer Customer)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace CustomerManagement.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateCustomer(Customer Customer)
+        public async Task<IActionResult> UpdateCustomer([FromBody]Customer Customer)
         {
             try
             {

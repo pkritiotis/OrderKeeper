@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CustomerManagement.API.Model
 {
@@ -17,6 +18,12 @@ namespace CustomerManagement.API.Model
         [Required]
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
+
+        public static explicit operator Customer(Task<EntityEntry<Customer>> v)
+        {
+            throw new NotImplementedException();
+        }
+
         [Required]
         public string EmailAddress { get; set; }
         public string Fax { get; set; }
