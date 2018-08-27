@@ -11,9 +11,10 @@ using System;
 namespace CustomerManagement.API.Migrations
 {
     [DbContext(typeof(CustomerContext))]
-    partial class CustomerContextModelSnapshot : ModelSnapshot
+    [Migration("20180827173404_customer_update")]
+    partial class customer_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
