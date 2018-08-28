@@ -10,8 +10,8 @@ namespace CustomerManagement.API.Model
 {
     public class Customer
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         public string FullName { get; set; }

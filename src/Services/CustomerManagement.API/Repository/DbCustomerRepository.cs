@@ -22,9 +22,9 @@ namespace CustomerManagement.API.Repository
             return customerResult.Entity;
         }
 
-        public async Task<bool> DeleteCustomerAsync(string customerId)
+        public async Task<bool> DeleteCustomerAsync(int customerId)
         {
-            var customer = new Customer { Id = 1 };
+            var customer = new Customer { Id = customerId };
             _customerContext.Customer.Attach(customer);
             _customerContext.Customer.Remove(customer);
             return await _customerContext.SaveChangesAsync() >0;

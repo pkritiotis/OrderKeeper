@@ -10,6 +10,6 @@ namespace CustomerManagement.API.Repository
         Task<Customer> GetCustomerAsync(int customerId);
         Task<Customer> AddCustomerAsync(Customer customer);
         Task<Customer> UpdateCustomerAsync(Customer customer);
-        Task<bool> DeleteCustomerAsync(string customerId);
+        Task<bool> DeleteCustomerAsync(int customerId);
     }
 }

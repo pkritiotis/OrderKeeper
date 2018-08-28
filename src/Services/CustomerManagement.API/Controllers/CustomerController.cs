@@ -6,6 +6,7 @@ using CustomerManagement.API.Model;
 using CustomerManagement.API.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.API.Controllers
 {
@@ -76,19 +77,24 @@ namespace CustomerManagement.API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteCustomer(string CustomerId)
+        public async Task<IActionResult> DeleteCustomer(int CustomerId)
         {
             try
             {
                 var deleteCustomerResult = await _repository
                     .DeleteCustomerAsync(CustomerId);
 
-                return Ok(deleteCustomerResult);
+                return NoContent();
             }
             catch (KeyNotFoundException)
             {
                 return NotFound();
             }
+            catch(DbUpdateConcurrencyException ex)
+            {
+                return NotFound();
+            }
+
         }
 
     }
