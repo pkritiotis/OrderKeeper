@@ -35,3 +35,10 @@ services:
     ports:
       - "80"
 
+
+  weborderkeeper:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+

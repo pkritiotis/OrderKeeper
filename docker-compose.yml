@@ -30,3 +30,10 @@ services:
       context: .
       dockerfile: src\Services\Customer.API\Dockerfile
 
+
+  weborderkeeper:
+    image: ${DOCKER_REGISTRY}weborderkeeper
+    build:
+      context: .
+      dockerfile: src\WebApps\WebOrderkeeper\Dockerfile
+
