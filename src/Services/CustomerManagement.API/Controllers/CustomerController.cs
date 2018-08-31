@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CustomerManagement.API.Model;
 using CustomerManagement.API.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,7 @@ namespace CustomerManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
+    [EnableCors("CorsAllAllowedPolicy")]
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _repository;
