@@ -74,6 +74,14 @@ namespace CustomerManagement.API
 
             });
             services.AddScoped<ICustomerRepository, DbCustomerRepository>();
+
+            services.AddCors(o => o.AddPolicy("CorsAllAllowedPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       ;
+            })); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,6 +104,7 @@ namespace CustomerManagement.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderKeeper Customer Management API V1");
             });
+            app.UseCors("CorsAllAllowedPolicy");
         }
         private void InitializeConfigurations(IServiceCollection services)
         {
