@@ -1,7 +1,6 @@
-import { Customer } from './../modules/model/customer';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CustomerService } from '../modules';
+import { Customer } from '../shared/models/customer.model';
+import { CustomerService } from './customer.service';
 
 @Component({
   selector: 'app-customer-management',
@@ -17,7 +16,7 @@ export class CustomerManagementComponent implements OnInit {
     this.getCustomers();
   }
   getCustomers(): void {
-    this.customerService.apiCustomerGet().subscribe(customers => this.customers = customers);
+    this.customerService.getCustomers().subscribe(customers => this.customers = customers);
   }
 
 }
