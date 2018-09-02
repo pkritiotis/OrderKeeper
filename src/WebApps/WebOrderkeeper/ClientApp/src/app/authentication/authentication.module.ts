@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ConfigurationService } from '../shared/services/configuration.service';
 import { StorageService } from '../shared/services/storage.service';
 import { HttpClientModule } from '@angular/common/http';
+import { routing } from '../app.routing';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpModule,
     FormsModule,
     HttpClientModule,
+    routing
   ],
   declarations: [LoginComponent, RegistrationComponent],
   providers: [
