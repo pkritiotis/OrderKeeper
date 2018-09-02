@@ -24,6 +24,9 @@ namespace WebOrderkeeper
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AppConfiguration appConfiguration = new AppConfiguration();
+            Configuration.GetSection("WebApp").Bind(appConfiguration);
+            services.AddSingleton(appConfiguration);
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -38,11 +41,10 @@ namespace WebOrderkeeper
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMvcWithDefaultRoute();
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
-            app.UseMvc();
-
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
@@ -52,6 +54,7 @@ namespace WebOrderkeeper
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
         }
     }
 }
