@@ -28,8 +28,8 @@ export class ConfigurationService {
             console.log('server settings loaded');
             this.serverSettings = response.json();
             console.log(this.serverSettings);
-            this.storageService.store('identityUrl', this.serverSettings.IdentityUrl);
-            this.storageService.store('customerUrl', this.serverSettings.CustomerUrl);
+            this.storageService.store('IdentityUrl', this.serverSettings.identityUrl);
+            this.storageService.store('CustomerUrl', this.serverSettings.customerUrl);
             this.isReady = true;
             this.settingsLoadedSource.next();
         });

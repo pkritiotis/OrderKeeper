@@ -25,7 +25,7 @@ export class SecurityService {
         this.storage = _storageService;
 
         this._configurationService.settingsLoaded$.subscribe(x => {
-            this.authorityUrl = this._configurationService.serverSettings.IdentityUrl;
+            this.authorityUrl = this._configurationService.serverSettings.identityUrl;
             this.storage.store('IdentityUrl', this.authorityUrl);
         });
 

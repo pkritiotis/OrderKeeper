@@ -4,7 +4,7 @@ import { CustomerService } from './customer/customer.service';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { routing } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 
@@ -21,6 +21,7 @@ import { DataService } from './shared/services/data.service';
 import { SecurityService } from './shared/services/security.service';
 import { ConfigurationService } from './shared/services/configuration.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { ConfigurationService } from './shared/services/configuration.service';
     FormsModule,
     routing,
     AuthenticationModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

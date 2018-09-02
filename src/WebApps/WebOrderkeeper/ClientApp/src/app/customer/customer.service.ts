@@ -17,7 +17,7 @@ export class CustomerService {
 
     constructor(private service: DataService, private configurationService: ConfigurationService) {
         this.configurationService.settingsLoaded$.subscribe(x => {
-            this.CustomerUrl = this.configurationService.serverSettings.CustomerUrl + '/api/Customer/';
+            this.CustomerUrl = this.configurationService.serverSettings.customerUrl + '/api/Customer/';
         });
     }
 

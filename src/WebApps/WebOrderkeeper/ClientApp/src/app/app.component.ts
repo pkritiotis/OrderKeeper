@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigurationService } from './shared/services/configuration.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OrderKeeper';
+  constructor(
+    private configurationService: ConfigurationService) {
+  }
+
+  ngOnInit() {
+    console.log('configuration');
+    this.configurationService.load();
+  }
 }

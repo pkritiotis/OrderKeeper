@@ -1,4 +1,4 @@
 export interface IConfiguration {
-    IdentityUrl: string;
-    CustomerUrl: string;
+    identityUrl: string;
+    customerUrl: string;
 }
