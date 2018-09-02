@@ -6,9 +6,9 @@ import { StorageService }   from './storage.service';
 import 'rxjs/Rx';
 import { Observable }       from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
-import { Observer }         from 'rxjs/Observer';
+import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/map';
-import { Subject }          from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 
 
 @Injectable()
@@ -23,13 +23,13 @@ export class ConfigurationService {
 
     load() {
         const baseURI = document.baseURI.endsWith('/') ? document.baseURI : `${document.baseURI}/`;
-        const url = `${baseURI}Home/Configuration`;
+        const url = `${baseURI}api/Configuration`;
         this.http.get(url).subscribe((response: Response) => {
             console.log('server settings loaded');
             this.serverSettings = response.json();
             console.log(this.serverSettings);
-            this.storageService.store('identityUrl', this.serverSettings.identityUrl);
-            this.storageService.store('customerUrl', this.serverSettings.customerUrl);
+            this.storageService.store('identityUrl', this.serverSettings.IdentityUrl);
+            this.storageService.store('customerUrl', this.serverSettings.CustomerUrl);
             this.isReady = true;
             this.settingsLoadedSource.next();
         });

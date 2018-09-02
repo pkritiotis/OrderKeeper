@@ -11,14 +11,14 @@ import 'rxjs/add/operator/catch';
 import { SecurityService } from './security.service';
 import { Guid } from '../../../guid';
 
-// Implementing a Retry-Circuit breaker policy 
+// Implementing a Retry-Circuit breaker policy
 // is pending to do for the SPA app
 @Injectable()
 export class DataService {
     constructor(private http: Http, private securityService: SecurityService) { }
 
     get(url: string, params?: any): Observable<Response> {
-        let options: RequestOptionsArgs = {};
+        const options: RequestOptionsArgs = {};
 
         if (this.securityService) {
             options.headers = new Headers();
@@ -44,14 +44,14 @@ export class DataService {
     }
 
     private doPost(url: string, data: any, needId: boolean, params?: any): Observable<Response> {
-        let options: RequestOptionsArgs = {};
+        const options: RequestOptionsArgs = {};
 
         options.headers = new Headers();
         if (this.securityService) {
             options.headers.append('Authorization', 'Bearer ' + this.securityService.GetToken());
         }
         if (needId) {
-            let guid = Guid.newGuid();
+            const guid = Guid.newGuid();
             options.headers.append('x-requestid', guid);
         }
 
@@ -62,14 +62,14 @@ export class DataService {
     }
 
     private doPut(url: string, data: any, needId: boolean, params?: any): Observable<Response> {
-        let options: RequestOptionsArgs = {};
+        const options: RequestOptionsArgs = {};
 
         options.headers = new Headers();
         if (this.securityService) {
             options.headers.append('Authorization', 'Bearer ' + this.securityService.GetToken());
         }
         if (needId) {
-            let guid = Guid.newGuid();
+            const guid = Guid.newGuid();
             options.headers.append('x-requestid', guid);
         }
 
@@ -80,7 +80,7 @@ export class DataService {
     }
 
     delete(url: string, params?: any) {
-        let options: RequestOptionsArgs = {};
+        const options: RequestOptionsArgs = {};
 
         if (this.securityService) {
             options.headers = new Headers();

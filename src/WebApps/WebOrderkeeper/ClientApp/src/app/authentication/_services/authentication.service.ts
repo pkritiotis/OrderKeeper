@@ -5,11 +5,11 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    
+
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>(this.configurationService.serverSettings.identityUrl + '/users/authenticate', { username, password })
+        return this.http.post<any>(this.configurationService.serverSettings.IdentityUrl + '/api/login', { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
