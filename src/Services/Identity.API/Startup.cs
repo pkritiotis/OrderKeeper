@@ -84,6 +84,13 @@ namespace Identity.API
                 c.SwaggerDoc(Constant.Swagger.Version, new Info { Title = Constant.Swagger.Title, Version = Constant.Swagger.Version });
             });
 
+            services.AddCors(o => o.AddPolicy("CorsAllAllowedPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       ;
+            }));
         }
 
         private void InitializeConfigurations(IServiceCollection services)
@@ -103,6 +110,7 @@ namespace Identity.API
                 app.UseDeveloperExceptionPage();
             }
             app.UseAuthentication();
+            app.UseCors("CorsAllAllowedPolicy");
             app.UseMvcWithDefaultRoute();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
@@ -114,6 +122,7 @@ namespace Identity.API
                 c.SwaggerEndpoint(Constant.Swagger.Endpoint, Constant.Swagger.Title);
             });
             applicationDbContext.Database.EnsureCreated();
+
         }
     }
 }
