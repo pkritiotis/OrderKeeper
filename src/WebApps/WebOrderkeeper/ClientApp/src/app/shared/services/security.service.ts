@@ -41,7 +41,7 @@ export class SecurityService {
             .map(user => {
                 // login successful if there's a jwt token in the response
                 this.IsAuthorized = true;
-                this.SetAuthorizationData(user, 'jwt');
+                this.SetAuthorizationData(user.json(), 'jwt');
                 return user;
             });
     }
