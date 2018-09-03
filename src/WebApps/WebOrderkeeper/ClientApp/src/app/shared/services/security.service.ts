@@ -80,7 +80,7 @@ export class SecurityService {
     }
 
     public Logoff() {
-        this.ResetAuthorizationData();
+        return this.ResetAuthorizationData();
     }
 
     public HandleError(error: any) {
