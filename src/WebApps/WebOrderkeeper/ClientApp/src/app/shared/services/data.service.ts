@@ -1,4 +1,5 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptionsArgs, RequestMethod, Headers } from '@angular/http';
 
 import 'rxjs/Rx';
@@ -11,21 +12,19 @@ import 'rxjs/add/operator/catch';
 import { SecurityService } from './security.service';
 import { Guid } from '../../../guid';
 
-// Implementing a Retry-Circuit breaker policy
-// is pending to do for the SPA app
 @Injectable()
 export class DataService {
-    constructor(private http: Http, private securityService: SecurityService) { }
+    constructor(private http: HttpClient, private securityService: SecurityService) { }
 
-    get(url: string, params?: any): Observable<Response> {
+    get(url: string, params?: any): Observable<any> {
         const options: RequestOptionsArgs = {};
 
-        if (this.securityService) {
-            options.headers = new Headers();
-            options.headers.append('Authorization', 'Bearer ' + this.securityService.GetToken());
-        }
+        // if (this.securityService) {
+        //     options.headers = new Headers();
+        //     options.headers.append('Authorization', 'Bearer ' + this.securityService.GetToken());
+        // }
 
-        return this.http.get(url, options).map(
+        return this.http.get<any>(url).map(
             (res: Response) => {
             return res;
         }).catch(this.handleError);
@@ -55,7 +54,7 @@ export class DataService {
             options.headers.append('x-requestid', guid);
         }
 
-        return this.http.post(url, data, options).map(
+        return this.http.post(url, data).map(
             (res: Response) => {
                 return res;
             }).catch(this.handleError);
@@ -65,15 +64,12 @@ export class DataService {
         const options: RequestOptionsArgs = {};
 
         options.headers = new Headers();
-        if (this.securityService) {
-            options.headers.append('Authorization', 'Bearer ' + this.securityService.GetToken());
-        }
         if (needId) {
             const guid = Guid.newGuid();
             options.headers.append('x-requestid', guid);
         }
 
-        return this.http.put(url, data, options).map(
+        return this.http.put(url, data).map(
             (res: Response) => {
                 return res;
             }).catch(this.handleError);
@@ -88,11 +84,7 @@ export class DataService {
         }
 
         console.log('data.service deleting');
-        // return this.http.delete(url, options).subscribe(
-        //        return res;
-        //    );
-
-        this.http.delete(url, options).subscribe((res) => {
+        this.http.delete(url).subscribe((res) => {
             console.log('deleted');
         });
     }

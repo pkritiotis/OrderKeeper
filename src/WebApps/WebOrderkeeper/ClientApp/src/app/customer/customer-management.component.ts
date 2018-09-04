@@ -13,7 +13,9 @@ export class CustomerManagementComponent implements OnInit {
   constructor(private customerService: CustomerService) { }
 
   ngOnInit() {
-    this.getCustomers();
+    this.customerService.customersReady$.subscribe(x => {
+      this.getCustomers();
+    });
   }
   getCustomers(): void {
     this.customerService.getCustomers().subscribe(customers => this.customers = customers);
