@@ -22,8 +22,7 @@ export class CustomerManagementComponent implements OnInit {
     }
   }
   getCustomers(): void {
-    console.log('calling getcustomers');
-    this.customerService.getCustomers().subscribe(customers => {console.log('call reslt retrieveed'); this.customers = customers;});
+    this.customerService.getCustomers().subscribe(customers => this.customers = customers);
   }
 
 }
