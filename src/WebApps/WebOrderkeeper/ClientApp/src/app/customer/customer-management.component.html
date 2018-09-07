@@ -1,7 +1,18 @@
 <app-header></app-header>
-<p>
-  customer-management works!
-  <li *ngFor="let customer of customers">
-  <span class="badge">{{customer.fullName}}</span> {{customer.phoneNumber}}
-</li>
-</p>
+<table class="table table-striped .table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Full name</th>
+      <th scope="col">Phone number</th>
+      <th scope="col">Address</th>
+      <th scope="col">Email address</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let customer of customers">
+    <td>{{customer.fullName}}</td>
+    <td>{{customer.phoneNumber}}</td> 
+    <td>{{customer.address}}</td>
+    <td>{{customer.emailaddress}}</td>
+  </tr>
+  <tbody></tbody>
+</table>

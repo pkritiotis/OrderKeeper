@@ -19,7 +19,8 @@ export class ConfigurationService {
     settingsLoaded$ = this.settingsLoadedSource.asObservable();
     isReady = false;
 
-    constructor(private http: Http, private storageService: StorageService) { }
+    constructor(private http: Http, private storageService: StorageService) {
+     }
 
     load() {
         const baseURI = document.baseURI.endsWith('/') ? document.baseURI : `${document.baseURI}/`;

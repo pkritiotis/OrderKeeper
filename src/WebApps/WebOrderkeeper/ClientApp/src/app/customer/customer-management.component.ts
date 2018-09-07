@@ -10,15 +10,20 @@ import { CustomerService } from './customer.service';
 export class CustomerManagementComponent implements OnInit {
 
   customers: Customer[];
-  constructor(private customerService: CustomerService) { }
-
-  ngOnInit() {
+  constructor(private customerService: CustomerService) {
     this.customerService.customersReady$.subscribe(x => {
       this.getCustomers();
     });
+   }
+
+  ngOnInit() {
+    if (this.customerService.isReady) {
+      this.getCustomers();
+    }
   }
   getCustomers(): void {
-    this.customerService.getCustomers().subscribe(customers => this.customers = customers);
+    console.log('calling getcustomers');
+    this.customerService.getCustomers().subscribe(customers => {console.log('call reslt retrieveed'); this.customers = customers;});
   }
 
 }
