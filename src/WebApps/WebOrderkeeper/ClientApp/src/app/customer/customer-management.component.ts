@@ -26,16 +26,15 @@ export class CustomerManagementComponent implements OnInit {
     }
   }
   getCustomers(): void {
-    this.customerService.getCustomers().subscribe(customers =>{ this.customers = customers; this.loading = false; });
+    this.customerService.getCustomers().subscribe(customers => { this.customers = customers; this.loading = false; });
   }
 
   deleteCustomer(customer: Customer) {
-    console.log(`requested ${customer.fullName} to be deleted`);
+    this.loading = true;
+    this.customerService.deleteCustomer(customer).subscribe(res => {this.loading = false; this.getCustomers(); });
   }
 
   modifyCustomer(customer: Customer) {
-    console.log(`requested ${customer.fullName} to be modified`);
-    this.router.navigate([`customer/${customer.id}`]);
+    this.router.navigate([`customer/${customer.id}/edit`]);
   }
-
 }

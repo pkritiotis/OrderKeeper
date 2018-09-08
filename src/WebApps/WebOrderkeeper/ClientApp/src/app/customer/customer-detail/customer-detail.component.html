@@ -2,7 +2,8 @@
   <app-loading></app-loading>
 </ng-template>
 <ng-template [ngIf]="customer">
-  <h2>{{customer.fullName}} Details</h2>
+  <h2 *ngIf="action === 'edit'">{{customer.fullName}} Details</h2>
+  <h2 *ngIf="action === 'create'">Add new customer</h2>
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="fullName" [(ngModel)]="customer.fullName" required>
@@ -14,6 +15,12 @@
   </div>
 
   <div class="form-group">
+      <label for="emailAddress">Email Address</label>
+      <input type="text" class="form-control" id="emailAddress" [(ngModel)]="customer.emailAddress" required>
+    </div>
+  
+
+  <div class="form-group">
     <label for="phoneNumber">Phone Number</label>
     <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="customer.phoneNumber" required>
   </div>
@@ -23,5 +30,6 @@
     <input type="text" class="form-control" id="fax" [(ngModel)]="customer.fax" required>
   </div>
 
-  <button type="submit" class="btn btn-success" (click)="onUpdate()">Save Changes</button>
+  <button type="submit" *ngIf="action === 'edit'" class="btn btn-success" (click)="onUpdate()">Save Changes</button>
+  <button type="submit" *ngIf="action === 'create'" class="btn btn-success" (click)="onCreate()">Save Changes</button>
 </ng-template>
