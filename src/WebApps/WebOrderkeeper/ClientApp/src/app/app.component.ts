@@ -1,3 +1,4 @@
+import { SecurityService } from './shared/services/security.service';
 import { Component } from '@angular/core';
 import { ConfigurationService } from './shared/services/configuration.service';
 
@@ -9,11 +10,15 @@ import { ConfigurationService } from './shared/services/configuration.service';
 export class AppComponent {
   title = 'OrderKeeper';
   constructor(
-    private configurationService: ConfigurationService) {
+    private configurationService: ConfigurationService
+    , private securityService : SecurityService) {
   }
 
   ngOnInit() {
     console.log('configuration');
     this.configurationService.load();
+  }
+  isAuthorized() {
+    return this.securityService.IsAuthorized;
   }
 }

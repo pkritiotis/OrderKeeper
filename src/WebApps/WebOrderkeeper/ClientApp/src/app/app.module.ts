@@ -20,6 +20,7 @@ import { JwtInterceptor } from './shared/_httpinterceptors/jwt.interceptor';
 import { DataService } from './shared/services/data.service';
 import { SecurityService } from './shared/services/security.service';
 import { ConfigurationService } from './shared/services/configuration.service';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ConfigurationService } from './shared/services/configuration.service';
     CustomerListComponent,
     CustomerDetailComponent,
     HomeComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

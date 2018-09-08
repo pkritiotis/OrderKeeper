@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+<ng-template [ngIf]="isAuthorized()">
+  <app-header></app-header>
+</ng-template>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>

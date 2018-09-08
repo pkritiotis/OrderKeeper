@@ -1,3 +1,4 @@
+import { CustomerDetailComponent } from './customer/customer-detail/customer-detail.component';
 import { CustomerManagementComponent } from './customer/customer-management.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/_guards/auth.guard';
@@ -8,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'customer', component: CustomerManagementComponent, canActivate: [AuthGuard] },
+    { path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
 
     // otherwise redirect to home
