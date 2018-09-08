@@ -36,4 +36,8 @@ export class CustomerService {
     getCustomers(): Observable<Customer[]> {
         return this.http.get<Customer[]>(this.CustomerUrl);
     }
+
+    getCustomerById(id: number): Observable<Customer> {
+        return this.http.get<Customer>(`${this.CustomerUrl}${id}`);
+    }
 }

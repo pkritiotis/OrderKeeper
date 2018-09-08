@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../shared/models/customer.model';
 import { CustomerService } from './customer.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-management',
@@ -10,7 +11,8 @@ import { CustomerService } from './customer.service';
 export class CustomerManagementComponent implements OnInit {
 
   customers: Customer[];
-  constructor(private customerService: CustomerService) {
+  constructor(private customerService: CustomerService
+             , private router: Router) {
     this.customerService.customersReady$.subscribe(x => {
       this.getCustomers();
     });
@@ -31,6 +33,7 @@ export class CustomerManagementComponent implements OnInit {
 
   modifyCustomer(customer: Customer) {
     console.log(`requested ${customer.fullName} to be modified`);
+    this.router.navigate([`customer/${customer.id}`]);
   }
 
 }
