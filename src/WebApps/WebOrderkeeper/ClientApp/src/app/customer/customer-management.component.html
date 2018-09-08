@@ -1,2 +1,4 @@
+<ng-template [ngIf]="loading">
+  <app-loading></app-loading>
+</ng-template>
 <app-customer-list [customers]="customers" (deleteCustomerRequested)="deleteCustomer($event)" (modifyCustomerRequested)="modifyCustomer($event)"></app-customer-list>
-

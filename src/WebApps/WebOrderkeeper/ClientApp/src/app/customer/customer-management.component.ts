@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 export class CustomerManagementComponent implements OnInit {
 
   customers: Customer[];
+  loading = true;
+
   constructor(private customerService: CustomerService
              , private router: Router) {
     this.customerService.customersReady$.subscribe(x => {
@@ -24,7 +26,7 @@ export class CustomerManagementComponent implements OnInit {
     }
   }
   getCustomers(): void {
-    this.customerService.getCustomers().subscribe(customers => this.customers = customers);
+    this.customerService.getCustomers().subscribe(customers =>{ this.customers = customers; this.loading = false; });
   }
 
   deleteCustomer(customer: Customer) {
