@@ -25,4 +25,12 @@ export class CustomerManagementComponent implements OnInit {
     this.customerService.getCustomers().subscribe(customers => this.customers = customers);
   }
 
+  deleteCustomer(customer: Customer) {
+    console.log(`requested ${customer.fullName} to be deleted`);
+  }
+
+  modifyCustomer(customer: Customer) {
+    console.log(`requested ${customer.fullName} to be modified`);
+  }
+
 }

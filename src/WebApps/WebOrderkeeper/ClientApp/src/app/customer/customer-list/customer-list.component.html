@@ -15,7 +15,10 @@
     <td>{{customer.phoneNumber}}</td>
     <td>{{customer.address}}</td>
     <td>{{customer.emailaddress}}</td>
-    <td><img src="../../../node_modules/open-iconic/svg/trash.svg" width="10px" height="10px"></td>
+    <td>
+        <button (click)="onModify(customer)" class="btn btn-warning btn-option"><img src="../../../../node_modules/open-iconic/svg/pencil.svg"> </button>
+        <button (click)="onDelete(customer)" class="btn btn-danger btn-option"><img (click)="onDelete(customer)" src="../../../../node_modules/open-iconic/svg/trash.svg"></button>
+    </td>
   </tr>
   <tbody></tbody>
 </table>

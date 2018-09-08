@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Customer } from '../../shared/models/customer.model';
 
 @Component({
@@ -9,9 +9,17 @@ import { Customer } from '../../shared/models/customer.model';
 export class CustomerListComponent implements OnInit {
 
   @Input() customers: Customer[];
+  @Output() deleteCustomerRequested = new EventEmitter<Customer>();
+  @Output() modifyCustomerRequested = new EventEmitter<Customer>();
+
   constructor() { }
 
   ngOnInit() {
   }
-
+  onDelete(customer: Customer) {
+    this.deleteCustomerRequested.emit(customer);
+  }
+  onModify(customer: Customer) {
+    this.modifyCustomerRequested.emit(customer);
+  }
 }
