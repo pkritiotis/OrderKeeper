@@ -1,3 +1,5 @@
+import { NotifierService } from 'angular-notifier';
+import { ConfirmationModalService } from './../shared/components/confirmation-modal/confirmation-modal.service';
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../shared/models/customer.model';
 import { CustomerService } from './customer.service';
@@ -14,11 +16,13 @@ export class CustomerManagementComponent implements OnInit {
   loading = true;
 
   constructor(private customerService: CustomerService
-             , private router: Router) {
+    , private router: Router
+    , private notificationService: NotifierService
+    , private confirmationModalService: ConfirmationModalService) {
     this.customerService.customersReady$.subscribe(x => {
       this.getCustomers();
     });
-   }
+  }
 
   ngOnInit() {
     if (this.customerService.isReady) {
@@ -30,8 +34,18 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   deleteCustomer(customer: Customer) {
-    this.loading = true;
-    this.customerService.deleteCustomer(customer).subscribe(res => {this.loading = false; this.getCustomers(); });
+    this.confirmationModalService.confirm('Delete customer', `Do you want to delete ${customer.fullName}?`)
+      .then((confirmed) => {
+        if (confirmed) {
+          this.loading = true;
+          this.customerService.deleteCustomer(customer).subscribe(res => {
+            this.notificationService.notify('success', 'Customer Deleted Successfully');
+            this.loading = false;
+            this.getCustomers();
+           });
+        }
+      })
+      .catch(() => console.log('cancelled'));
   }
 
   modifyCustomer(customer: Customer) {

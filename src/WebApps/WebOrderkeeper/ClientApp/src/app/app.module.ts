@@ -22,6 +22,9 @@ import { SecurityService } from './shared/services/security.service';
 import { ConfigurationService } from './shared/services/configuration.service';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { NotifierModule } from 'angular-notifier';
+import { ConfirmationModalComponent } from './shared/components/confirmation-modal/confirmation-modal.component';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationModalService } from './shared/components/confirmation-modal/confirmation-modal.service';
 
 @NgModule({
   declarations: [
@@ -31,8 +34,10 @@ import { NotifierModule } from 'angular-notifier';
     CustomerListComponent,
     CustomerDetailComponent,
     HomeComponent,
-    LoadingComponent
+    LoadingComponent,
+    ConfirmationModalComponent
   ],
+  entryComponents: [ConfirmationModalComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -40,7 +45,8 @@ import { NotifierModule } from 'angular-notifier';
     AuthenticationModule,
     HttpModule,
     ReactiveFormsModule,
-    NotifierModule
+    NotifierModule,
+    NgbModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -49,7 +55,9 @@ import { NotifierModule } from 'angular-notifier';
     DataService,
     StorageService,
     SecurityService,
-    ConfigurationService
+    ConfigurationService,
+    ConfirmationModalService,
+    NgbActiveModal
   ],
   bootstrap: [AppComponent]
 })
