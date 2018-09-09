@@ -21,7 +21,7 @@ import { DataService } from './shared/services/data.service';
 import { SecurityService } from './shared/services/security.service';
 import { ConfigurationService } from './shared/services/configuration.service';
 import { LoadingComponent } from './shared/components/loading/loading.component';
-
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     CustomerListComponent,
     CustomerDetailComponent,
     HomeComponent,
-    LoadingComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +40,7 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     AuthenticationModule,
     HttpModule,
     ReactiveFormsModule,
+    NotifierModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

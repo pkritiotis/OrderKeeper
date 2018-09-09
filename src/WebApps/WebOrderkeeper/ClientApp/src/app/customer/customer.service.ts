@@ -45,7 +45,7 @@ export class CustomerService {
         return this.http.put<Customer>(`${this.CustomerUrl}`, customer);
     }
 
-    createCustomer(customer: Customer): any {
+    createCustomer(customer: Customer): Observable<Customer> {
         return this.http.post<Customer>(`${this.CustomerUrl}`, customer);
     }
 

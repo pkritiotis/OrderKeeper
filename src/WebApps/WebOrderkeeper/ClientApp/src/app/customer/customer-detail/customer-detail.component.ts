@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from '../../shared/models/customer.model';
 import { Location } from '@angular/common';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-customer-detail',
@@ -14,7 +15,11 @@ export class CustomerDetailComponent implements OnInit {
   customer: Customer;
   loading: boolean;
   action: string;
-  constructor(private route: ActivatedRoute, private customerService: CustomerService, private location: Location) { }
+  constructor(private route: ActivatedRoute,
+             private customerService: CustomerService,
+             private location: Location,
+             private notificationService: NotifierService
+             ) { }
 
   ngOnInit() {
     this.loading = true;
@@ -39,11 +44,19 @@ export class CustomerDetailComponent implements OnInit {
 
   onUpdate() {
     this.loading = true;
-    this.customerService.updateCustomer(this.customer).subscribe(res => { this.loading = false; this.location.back(); });
+    this.customerService.updateCustomer(this.customer).subscribe(res => {
+      this.loading = false;
+      this.location.back();
+      this.notificationService.notify('success', `${this.customer.fullName} updated successfully`);
+    });
   }
 
   onCreate() {
     this.loading = true;
-    this.customerService.createCustomer(this.customer).subscribe(res => { this.loading = false; this.location.back(); });
+    this.customerService.createCustomer(this.customer).subscribe(res => {
+      this.loading = false;
+      this.location.back();
+      this.notificationService.notify('success', `${res.fullName} added successfully`);
+     });
   }
 }

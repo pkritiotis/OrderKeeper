@@ -1,6 +1,9 @@
 <h1 class="title">Customer Management</h1>
 <button type="button" class="btn btn-primary btn-create-new" [routerLink]="['/customer/new/']">Add new</button>
-<ng-template [ngIf]="loading">
-  <app-loading></app-loading>
-</ng-template>
-<app-customer-list [customers]="customers" (deleteCustomerRequested)="deleteCustomer($event)" (modifyCustomerRequested)="modifyCustomer($event)"></app-customer-list>
+<div class="col-xl-12">
+  <ng-template [ngIf]="loading">
+    <app-loading></app-loading>
+  </ng-template>
+  <app-customer-list [customers]="customers" (deleteCustomerRequested)="deleteCustomer($event)"
+    (modifyCustomerRequested)="modifyCustomer($event)"></app-customer-list>
+</div>

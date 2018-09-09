@@ -1,8 +1,12 @@
-:host {
-    display: block;
-  }
-  img {
-    display: block;
-    margin: 20px auto;
-    width: 50px;
-  }
+#loading-container {
+  position: fixed;
+  height: 100vh;
+  width: 100vh;
+  background: black transparent;
+}
+
+img {
+  display: block;
+  margin: 20px auto;
+  width: 50px;
+}
