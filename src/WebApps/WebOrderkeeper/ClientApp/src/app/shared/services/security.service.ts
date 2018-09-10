@@ -53,7 +53,7 @@ export class SecurityService {
     }
 
     public GetToken(): any {
-        return this._storageService.retrieve('authorizationData');
+        return this._storageService.retrieve('authorizationData', this.is_persistent);
     }
 
     public ResetAuthorizationData() {
