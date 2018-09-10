@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
       this.loginForm = this.formBuilder.group({
           emailAddress: ['', Validators.required],
-          password: ['', Validators.required]
+          password: ['', Validators.required],
+          remember_me : [false]
       });
 
       // reset login status
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
       }
 
       this.loading = true;
-      this.authenticationService.login(this.f.emailAddress.value, this.f.password.value)
+      this.authenticationService.login(this.f.emailAddress.value, this.f.password.value, this.f.remember_me.value)
           .subscribe(
               data => {
                   this.router.navigate([this.returnUrl]);

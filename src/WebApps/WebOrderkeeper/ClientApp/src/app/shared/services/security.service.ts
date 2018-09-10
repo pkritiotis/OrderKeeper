@@ -16,6 +16,7 @@ export class SecurityService {
 
     public IsAuthorized: boolean;
     public UserData: any;
+    public is_persistent = true;
 
     constructor(private _http: Http, private _router: Router,
         private route: ActivatedRoute, private _configurationService: ConfigurationService,
@@ -29,18 +30,23 @@ export class SecurityService {
             _storageService.store('IdentityUrl', this.identityUrl);
         });
 
+        if (_storageService.retrieve('IsAuthorized', true) !== '') {
+            this.IsAuthorized = _storageService.retrieve('IsAuthorized', true);
+            this.UserData = _storageService.retrieve('userData', true);
+        } else
         if (_storageService.retrieve('IsAuthorized') !== '') {
             this.IsAuthorized = _storageService.retrieve('IsAuthorized');
             this.UserData = _storageService.retrieve('userData');
         }
     }
 
-    LogIn(email, password): any {
+    LogIn(email, password, rememberMe): any {
         const identityApiUrl = this._configurationService.serverSettings.identityUrl + 'account/login';
         return this._http.post(identityApiUrl, { email, password })
             .map(user => {
                 // login successful if there's a jwt token in the response
                 this.IsAuthorized = true;
+                this.is_persistent = rememberMe;
                 this.SetAuthorizationData(user.json(), 'jwt');
                 return user;
             });
@@ -51,32 +57,32 @@ export class SecurityService {
     }
 
     public ResetAuthorizationData() {
-        this._storageService.store('authorizationData', '');
-        this._storageService.store('authorizationDataIdToken', '');
+        this._storageService.store('authorizationData', '' , this.is_persistent);
+        this._storageService.store('authorizationDataIdToken', '', this.is_persistent);
         this.IsAuthorized = false;
-        this._storageService.store('IsAuthorized', false);
+        this._storageService.store('IsAuthorized', false, this.is_persistent);
     }
 
     public SetAuthorizationData(token: any, id_token: any) {
-        if (this._storageService.retrieve('authorizationData') !== '') {
-            this._storageService.store('authorizationData', '');
+        if (this._storageService.retrieve('authorizationData', this.is_persistent) !== '') {
+            this._storageService.store('authorizationData', '', this.is_persistent);
         }
 
-        this._storageService.store('authorizationData', token);
-        this._storageService.store('authorizationDataIdToken', id_token);
+        this._storageService.store('authorizationData', token, this.is_persistent);
+        this._storageService.store('authorizationDataIdToken', id_token, this.is_persistent);
         this.IsAuthorized = true;
-        this._storageService.store('IsAuthorized', true);
+        this._storageService.store('IsAuthorized', true, this.is_persistent);
 
-        this.getUserData()
-            .subscribe(data => {
-                this.UserData = data;
-                this._storageService.store('userData', data);
-                window.location.href = location.origin;
-            },
-                error => this.HandleError(error),
-                () => {
-                    console.log(this.UserData);
-                });
+        // this.getUserData()
+        //     .subscribe(data => {
+        //         this.UserData = data;
+        //         this._storageService.store('userData', data);
+        //         window.location.href = location.origin;
+        //     },
+        //         error => this.HandleError(error),
+        //         () => {
+        //             console.log(this.UserData);
+        //         });
     }
 
     public Logoff() {
@@ -123,15 +129,15 @@ export class SecurityService {
 
 
     private getUserData = (): Observable<string[]> => {
-        this.setHeaders();
-        if (this.identityUrl === '') {
-            this.identityUrl = this._storageService.retrieve('IdentityUrl');
-        }
+        // this.setHeaders();
+        // if (this.identityUrl === '') {
+        //     this.identityUrl = this._storageService.retrieve('IdentityUrl');
+        // }
 
-        return this._http.get(this.identityUrl + '/account/userinfo', {
-            headers: this.headers,
-            body: ''
-        }).map(res => res.json());
+        // return this._http.get(this.identityUrl + '/account/userinfo', {
+        //     headers: this.headers,
+        //     body: ''
+        // }).map(res => res.json());
     }
 
     private setHeaders() {
