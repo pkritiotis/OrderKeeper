@@ -133,7 +133,7 @@ export class SecurityService {
         // if (this.identityUrl === '') {
         //     this.identityUrl = this._storageService.retrieve('IdentityUrl');
         // }
-
+        return null;
         // return this._http.get(this.identityUrl + '/account/userinfo', {
         //     headers: this.headers,
         //     body: ''
