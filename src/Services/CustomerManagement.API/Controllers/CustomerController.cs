@@ -13,7 +13,6 @@ namespace CustomerManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
-    [EnableCors("CorsAllAllowedPolicy")]
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _repository;

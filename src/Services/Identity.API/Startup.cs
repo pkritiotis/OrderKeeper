@@ -46,7 +46,6 @@ namespace Identity.API
                                      sqlServerOptionsAction: sqlOptions =>
                                      {
                                          sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-                                         //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
                                          sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                                      }));
 
@@ -84,9 +83,9 @@ namespace Identity.API
                 c.SwaggerDoc(Constant.Swagger.Version, new Info { Title = Constant.Swagger.Title, Version = Constant.Swagger.Version });
             });
 
-            services.AddCors(o => o.AddPolicy("CorsAllAllowedPolicy", builder =>
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
             {
-                builder.AllowAnyOrigin()
+                builder.WithOrigins(Configuration.GetSection("Security").GetSection("Cors").Get<string[]>())
                        .AllowAnyMethod()
                        .AllowAnyHeader()
                        ;
@@ -110,7 +109,7 @@ namespace Identity.API
                 app.UseDeveloperExceptionPage();
             }
             app.UseAuthentication();
-            app.UseCors("CorsAllAllowedPolicy");
+            app.UseCors("CorsPolicy");
             app.UseMvcWithDefaultRoute();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

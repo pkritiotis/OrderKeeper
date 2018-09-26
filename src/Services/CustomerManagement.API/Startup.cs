@@ -75,13 +75,13 @@ namespace CustomerManagement.API
             });
             services.AddScoped<ICustomerRepository, DbCustomerRepository>();
 
-            services.AddCors(o => o.AddPolicy("CorsAllAllowedPolicy", builder =>
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
             {
-                builder.AllowAnyOrigin()
+                builder.WithOrigins(Configuration.GetSection("Security").GetSection("Cors").Get<string[]>())
                        .AllowAnyMethod()
                        .AllowAnyHeader()
                        ;
-            })); 
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +93,7 @@ namespace CustomerManagement.API
             }
 
             app.UseAuthentication();
+            app.UseCors("CorsPolicy");
             app.UseMvcWithDefaultRoute();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -104,7 +105,6 @@ namespace CustomerManagement.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderKeeper Customer Management API V1");
             });
-            app.UseCors("CorsAllAllowedPolicy");
         }
         private void InitializeConfigurations(IServiceCollection services)
         {
