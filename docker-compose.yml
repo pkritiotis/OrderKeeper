@@ -24,16 +24,16 @@ services:
       dockerfile: src\Services\CustomerManagement.API\Dockerfile
 
 
-  customer.api:
-    image: ${DOCKER_REGISTRY}customerapi
-    build:
-      context: .
-      dockerfile: src\Services\Customer.API\Dockerfile
-
-
   weborderkeeper:
     image: ${DOCKER_REGISTRY}weborderkeeper
     build:
       context: .
       dockerfile: src\WebApps\WebOrderkeeper\Dockerfile
+
+
+  product.api:
+    image: ${DOCKER_REGISTRY}productapi
+    build:
+      context: .
+      dockerfile: src\Services\Product.API\Dockerfile
 
