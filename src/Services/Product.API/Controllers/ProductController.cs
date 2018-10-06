@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.API.Model;
 using ProductManagement.API.Repository;
+using ProductManagement.API.Model;
 
 namespace ProductManagement.API.Controllers
 {
