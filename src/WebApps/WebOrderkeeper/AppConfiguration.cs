@@ -9,5 +9,6 @@ namespace WebOrderkeeper
     {
         public string IdentityUrl { get; set; }
         public string CustomerUrl { get; set; }
+        public string ProductUrl { get; set; }
     }
 }

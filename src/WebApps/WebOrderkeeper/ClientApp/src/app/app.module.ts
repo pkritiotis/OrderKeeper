@@ -25,6 +25,10 @@ import { NotifierModule } from 'angular-notifier';
 import { ConfirmationModalComponent } from './shared/components/confirmation-modal/confirmation-modal.component';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalService } from './shared/components/confirmation-modal/confirmation-modal.service';
+import { ProductManagementComponent } from './product/product-management.component';
+import { ProductListComponent } from './product/product-list/product-list.component';
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { ProductService } from './product/product.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,9 @@ import { ConfirmationModalService } from './shared/components/confirmation-modal
     CustomerManagementComponent,
     CustomerListComponent,
     CustomerDetailComponent,
+    ProductManagementComponent,
+    ProductListComponent,
+    ProductDetailComponent,
     HomeComponent,
     LoadingComponent,
     ConfirmationModalComponent
@@ -57,7 +64,8 @@ import { ConfirmationModalService } from './shared/components/confirmation-modal
     SecurityService,
     ConfigurationService,
     ConfirmationModalService,
-    NgbActiveModal
+    NgbActiveModal,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
