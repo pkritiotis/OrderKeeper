@@ -3,13 +3,6 @@ version: '3.4'
 
 
 services:
-  ordering.api:
-    image: ${DOCKER_REGISTRY}orderingapi
-    build:
-      context: .
-      dockerfile: src\Services\Ordering.API\Dockerfile
-
-
   identity.api:
     image: ${DOCKER_REGISTRY}identityapi
     build:
