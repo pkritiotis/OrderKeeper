@@ -47,7 +47,7 @@ export class ProductDetailComponent implements OnInit {
     this.productService.updateProduct(this.product).subscribe(res => {
       this.loading = false;
       this.location.back();
-      this.notificationService.notify('success', `${this.product.Name} updated successfully`);
+      this.notificationService.notify('success', `${this.product.name} updated successfully`);
     });
   }
 
@@ -56,7 +56,7 @@ export class ProductDetailComponent implements OnInit {
     this.productService.createProduct(this.product).subscribe(res => {
       this.loading = false;
       this.location.back();
-      this.notificationService.notify('success', `${res.Name} added successfully`);
+      this.notificationService.notify('success', `${res.name} added successfully`);
      });
   }
 }
