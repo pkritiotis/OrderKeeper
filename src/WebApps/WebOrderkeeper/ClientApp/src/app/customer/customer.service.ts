@@ -1,9 +1,6 @@
 import { Customer } from './../shared/models/customer.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-
-import { DataService } from '../shared/services/data.service';
 import { ConfigurationService } from '../shared/services/configuration.service';
 
 // import 'rxjs/Rx';
@@ -21,7 +18,7 @@ export class CustomerService {
     customersReady$ = this.customerLoadedSource.asObservable();
     isReady = false;
 
-    constructor(private service: DataService, private configurationService: ConfigurationService, private http: HttpClient) {
+    constructor(private configurationService: ConfigurationService, private http: HttpClient) {
         if (this.configurationService.isReady) {
             this.CustomerUrl = this.configurationService.serverSettings.customerUrl + '/api/Customer/';
             this.isReady = true;

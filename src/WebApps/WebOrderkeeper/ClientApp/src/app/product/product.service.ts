@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 
-import { DataService } from '../shared/services/data.service';
 import { ConfigurationService } from '../shared/services/configuration.service';
 
 // import 'rxjs/Rx';
@@ -21,7 +20,7 @@ export class ProductService {
     productsReady$ = this.productLoadedSource.asObservable();
     isReady = false;
 
-    constructor(private service: DataService, private configurationService: ConfigurationService, private http: HttpClient) {
+    constructor(private configurationService: ConfigurationService, private http: HttpClient) {
         if (this.configurationService.isReady) {
             this.ProductUrl = this.configurationService.serverSettings.productUrl + '/api/Product/';
             this.isReady = true;

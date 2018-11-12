@@ -17,7 +17,6 @@ import { HomeComponent } from './home/home.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './shared/_httpinterceptors/error.interceptor';
 import { JwtInterceptor } from './shared/_httpinterceptors/jwt.interceptor';
-import { DataService } from './shared/services/data.service';
 import { SecurityService } from './shared/services/security.service';
 import { ConfigurationService } from './shared/services/configuration.service';
 import { LoadingComponent } from './shared/components/loading/loading.component';
@@ -59,7 +58,6 @@ import { ProductService } from './product/product.service';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CustomerService,
-    DataService,
     StorageService,
     SecurityService,
     ConfigurationService,
