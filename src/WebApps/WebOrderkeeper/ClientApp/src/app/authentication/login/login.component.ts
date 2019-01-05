@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       });
 
       // reset login status
-      this.authenticationService.logout();
+      this.authenticationService.Logout();
 
       // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -48,14 +48,14 @@ export class LoginComponent implements OnInit {
       }
 
       this.loading = true;
-      this.authenticationService.login(this.f.emailAddress.value, this.f.password.value, this.f.remember_me.value)
-          .subscribe(
-              data => {
+      this.authenticationService.Login(this.f.emailAddress.value, this.f.password.value, this.f.remember_me.value)
+           .subscribe(
+               data => {
                   this.router.navigate([this.returnUrl]);
-              },
-              error => {
-                  this.error = error;
-                  this.loading = false;
-              });
+               },
+               error => {
+                   this.error = error;
+                   this.loading = false;
+               });
   }
 }

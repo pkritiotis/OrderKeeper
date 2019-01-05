@@ -1,7 +1,7 @@
 ﻿import { Injectable }       from '@angular/core';
 import { Http, Response, RequestOptionsArgs, RequestMethod, Headers } from '@angular/http';
 import { IConfiguration }   from '../models/configuration.model';
-import { StorageService }   from './storage.service';
+import { SessionStorageService }   from './storage/sessionstorage.service';
 
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,7 @@ export class ConfigurationService {
     settingsLoaded$ = this.settingsLoadedSource.asObservable();
     isReady = false;
 
-    constructor(private http: Http, private storageService: StorageService) {
+    constructor(private http: Http, private storageService: SessionStorageService) {
      }
 
     load() {

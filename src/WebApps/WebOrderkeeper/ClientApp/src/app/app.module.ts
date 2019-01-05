@@ -1,5 +1,4 @@
 import { Http, ConnectionBackend, HttpModule } from '@angular/http';
-import { StorageService } from './shared/services/storage.service';
 import { CustomerService } from './customer/customer.service';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { routing } from './app.routing';
@@ -28,6 +27,8 @@ import { ProductManagementComponent } from './product/product-management.compone
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductService } from './product/product.service';
+import { LocalStorageService } from './shared/services/storage/localstorage.service';
+import { SessionStorageService } from './shared/services/storage/sessionstorage.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ProductService } from './product/product.service';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CustomerService,
-    StorageService,
+    LocalStorageService,
+    SessionStorageService,
     SecurityService,
     ConfigurationService,
     ConfirmationModalService,
