@@ -22,7 +22,7 @@ namespace Ordering.API.Model
                 results.Add(new ValidationResult("Invalid number of units", new[] { "Quantity" }));
             }
 
-            if(InitialUnitPrice < 0)
+            if(UnitPrice <= 0)
             {
                 results.Add(new ValidationResult("Invalid unit price", new[] { "UnitPrice" }));
             }

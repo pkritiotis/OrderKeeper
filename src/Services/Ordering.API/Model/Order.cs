@@ -10,6 +10,7 @@ namespace Ordering.API.Model
         public DateTime DateModified { get; set; }
         public DateTime DateIssued { get; set; }
         public List<OrderItem> OrderItems {get;set;}
+        public double  TotalAmount { get; set; }
 
     }
 }
