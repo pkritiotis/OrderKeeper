@@ -1,10 +1,10 @@
-﻿using EventBus.Events;
-using EventBus.Interfaces;
+﻿using OrderKeeper.EventBus.Events;
+using OrderKeeper.EventBus.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EventBus
+namespace OrderKeeper.EventBus
 {
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EventBus
+namespace OrderKeeper.EventBus
 {
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {

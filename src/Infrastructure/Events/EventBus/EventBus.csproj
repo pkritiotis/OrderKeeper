@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>OrderKeeper.EventBus</AssemblyName>
+    <RootNamespace>OrderKeeper.EventBus</RootNamespace>
   </PropertyGroup>
 
 </Project>

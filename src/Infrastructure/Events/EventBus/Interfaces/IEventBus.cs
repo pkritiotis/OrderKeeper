@@ -1,6 +1,6 @@
-﻿using EventBus.Events;
+﻿using OrderKeeper.EventBus.Events;
 
-namespace EventBus.Interfaces
+namespace OrderKeeper.EventBus.Interfaces
 {
     public interface IEventBus
     {

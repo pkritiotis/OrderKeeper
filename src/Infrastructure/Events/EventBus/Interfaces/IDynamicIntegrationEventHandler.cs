@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace EventBus.Interfaces
+namespace OrderKeeper.EventBus.Interfaces
 {
     public interface IDynamicIntegrationEventHandler
     {
