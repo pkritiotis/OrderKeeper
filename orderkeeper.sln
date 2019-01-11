@@ -25,7 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{2C98A008-D6F4-47CE-8AF0-5713A6550F68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "src\Infrastructure\Events\EventBus\EventBus.csproj", "{31FE009E-D6FB-46D0-905A-7498DC7039C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus", "src\Infrastructure\Events\EventBus\EventBus.csproj", "{31FE009E-D6FB-46D0-905A-7498DC7039C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusRabbitMq", "src\Infrastructure\Events\EventBusRabbitMq\EventBusRabbitMq.csproj", "{F24AA767-8B60-4BBF-8148-825D5821D64E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{31FE009E-D6FB-46D0-905A-7498DC7039C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31FE009E-D6FB-46D0-905A-7498DC7039C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31FE009E-D6FB-46D0-905A-7498DC7039C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F24AA767-8B60-4BBF-8148-825D5821D64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F24AA767-8B60-4BBF-8148-825D5821D64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F24AA767-8B60-4BBF-8148-825D5821D64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F24AA767-8B60-4BBF-8148-825D5821D64E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{BB16103E-7714-4B05-8AEB-CCA1800DCA6C} = {7A97605A-D5E3-45F0-B085-963040A07715}
 		{2C98A008-D6F4-47CE-8AF0-5713A6550F68} = {BB16103E-7714-4B05-8AEB-CCA1800DCA6C}
 		{31FE009E-D6FB-46D0-905A-7498DC7039C1} = {2C98A008-D6F4-47CE-8AF0-5713A6550F68}
+		{F24AA767-8B60-4BBF-8148-825D5821D64E} = {2C98A008-D6F4-47CE-8AF0-5713A6550F68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8D2B7D8-C2CB-4A5D-9718-DF300E14D0B2}
