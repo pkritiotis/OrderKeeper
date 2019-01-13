@@ -14,10 +14,10 @@ namespace OrderKeeper.EventBus.Interfaces
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>;
 
-        void SubscribeDynamic<TH>(string eventName)
+        void Subscribe<TH>(string eventName)
             where TH : IDynamicIntegrationEventHandler;
 
-        void UnsubscribeDynamic<TH>(string eventName)
+        void Unsubscribe<TH>(string eventName)
             where TH : IDynamicIntegrationEventHandler;
     }
 }
