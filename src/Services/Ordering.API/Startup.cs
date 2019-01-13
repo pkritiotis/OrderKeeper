@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Ordering.API.Configuration;
 using Ordering.API.Model;
 using OrderManagement.API.Repository;
@@ -23,10 +26,12 @@ namespace Ordering.API
         {
             Configuration = configuration;
             DbConfiguration = new DatabaseConfiguration();
+            JwtConfiguration = new JwtConfiguration();
         }
 
         public IConfiguration Configuration { get; }
         private DatabaseConfiguration DbConfiguration { get; }
+        private JwtConfiguration JwtConfiguration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,6 +39,26 @@ namespace Ordering.API
             InitializeConfigurations(services);
 
             services.AddMvc();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            })
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.SaveToken = true;
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = JwtConfiguration.Issuer,
+                        ValidAudience = JwtConfiguration.Issuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConfiguration.Key)),
+                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                    };
+                });
 
             services.AddSwaggerGen(c =>
             {
@@ -70,6 +95,10 @@ namespace Ordering.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+
+            app.UseCors("CorsPolicy");
+
             app.UseMvcWithDefaultRoute();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -87,6 +116,9 @@ namespace Ordering.API
         {
             Configuration.GetSection("Database").Bind(DbConfiguration);
             services.AddSingleton(DbConfiguration);
+
+            Configuration.GetSection("Jwt").Bind(JwtConfiguration);
+            services.AddSingleton(JwtConfiguration);
         }
     }
 }
