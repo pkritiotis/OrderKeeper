@@ -1,0 +1,9 @@
+<h1 class="title">Order Management</h1>
+<button type="button" class="btn btn-primary btn-create-new" [routerLink]="['/order/new/']">Add new</button>
+<div class="col-xl-12">
+  <ng-template [ngIf]="loading">
+    <app-loading></app-loading>
+  </ng-template>
+  <app-order-list [orders]="orders" (deleteOrderRequested)="deleteOrder($event)"
+    (modifyOrderRequested)="modifyOrder($event)"></app-order-list>
+</div>

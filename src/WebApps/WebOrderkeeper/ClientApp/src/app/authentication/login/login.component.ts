@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.authenticationService.Login(this.f.emailAddress.value, this.f.password.value, this.f.remember_me.value)
            .subscribe(
-               data => {
+               () => {
                   this.router.navigate([this.returnUrl]);
                },
                error => {

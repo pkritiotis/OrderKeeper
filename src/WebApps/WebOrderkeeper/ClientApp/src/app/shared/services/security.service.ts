@@ -32,7 +32,7 @@ export class SecurityService {
     }
 
     public LogIn(email, password, rememberMe) {
-        const identityApiUrl = this._configurationService.serverSettings.identityUrl + 'account/login';
+        const identityApiUrl = this._configurationService.serverSettings.identityUrl + '/account/login';
         return this._http.post(identityApiUrl, { email, password })
             .map(token => {
                 // login successful if there's a jwt token in the response

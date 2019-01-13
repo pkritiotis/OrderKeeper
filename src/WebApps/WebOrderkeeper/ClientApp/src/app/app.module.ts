@@ -29,6 +29,10 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ProductService } from './product/product.service';
 import { LocalStorageService } from './shared/services/storage/localstorage.service';
 import { SessionStorageService } from './shared/services/storage/sessionstorage.service';
+import { OrderManagementComponent } from './order/order-management.component';
+import { OrderListComponent } from './order/order-list/order-list.component';
+import { OrderDetailComponent } from './order/order-detail/order-detail.component';
+import { OrderService } from './order/order.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,10 @@ import { SessionStorageService } from './shared/services/storage/sessionstorage.
     ProductDetailComponent,
     HomeComponent,
     LoadingComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    OrderManagementComponent,
+    OrderListComponent,
+    OrderDetailComponent,
   ],
   entryComponents: [ConfirmationModalComponent],
   imports: [
@@ -65,7 +72,8 @@ import { SessionStorageService } from './shared/services/storage/sessionstorage.
     ConfigurationService,
     ConfirmationModalService,
     NgbActiveModal,
-    ProductService
+    ProductService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })
