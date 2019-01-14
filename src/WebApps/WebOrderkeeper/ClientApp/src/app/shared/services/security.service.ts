@@ -36,7 +36,6 @@ export class SecurityService {
         return this._http.post(identityApiUrl, { email, password })
             .map(token => {
                 // login successful if there's a jwt token in the response
-                console.log('token is ' + token);
                 this.IsAuthorized = true;
                 this.is_persistent = rememberMe;
                 this.SetAuthorizationData(token.json(), 'jwt');
