@@ -1,4 +1,3 @@
-import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 import { CustomerDetailComponent } from './customer/customer-detail/customer-detail.component';
 import { CustomerManagementComponent } from './customer/customer-management.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductManagementComponent } from './product/product-management.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { OrderManagementComponent } from './order/order-management.component';
+import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 
 
 const appRoutes: Routes = [
