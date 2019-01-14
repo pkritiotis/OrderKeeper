@@ -25,7 +25,7 @@ namespace Ordering.API.Controllers
             return Ok(await _repository.GetOrdersAsync());
         }
 
-        [Route("{orderId:int}")]
+        [Route("{orderId}")]
         [HttpGet]
         public async Task<IActionResult> GetOrder(string orderId)
         {
