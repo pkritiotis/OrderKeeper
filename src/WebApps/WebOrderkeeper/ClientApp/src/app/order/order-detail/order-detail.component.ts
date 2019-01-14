@@ -25,7 +25,7 @@ export class OrderDetailComponent implements OnInit {
     this.loading = true;
     this.action = this.route.snapshot.data['action'];
     if (this.action === 'edit') {
-      const id = +this.route.snapshot.paramMap.get('id');
+      const id = this.route.snapshot.paramMap.get('id');
       if (this.orderService.isReady) {
         this.orderService.getOrderById(id)
           .subscribe(order => { this.order = order; console.log(JSON.stringify(order)); this.loading = false; });
@@ -37,8 +37,8 @@ export class OrderDetailComponent implements OnInit {
     }
 
     if (this.action === 'create') {
-      this.order = null;
-      this.loading = false;
+      this.order =  { 'id': '0', 'customerId': '1', 'dateCreated': new Date(), 'dateIssued': new Date(), 'dateModified': new Date(), 'orderItems' : null, 'TotalAmount': 10 };
+      this.loading = false; 
     }
   }
 
