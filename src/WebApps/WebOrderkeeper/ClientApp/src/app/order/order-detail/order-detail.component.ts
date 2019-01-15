@@ -1,3 +1,4 @@
+import { OrderItem } from './../../shared/models/order.model';
 import { OrderService } from '../order.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -37,7 +38,7 @@ export class OrderDetailComponent implements OnInit {
     }
 
     if (this.action === 'create') {
-      this.order =  { 'id': '0', 'customerId': '1', 'dateCreated': new Date(), 'dateIssued': new Date(), 'dateModified': new Date(), 'orderItems' : null, 'TotalAmount': 10 };
+      this.order =  { 'id': '0', 'customerId': '1', 'dateCreated': new Date(), 'dateIssued': new Date(), 'dateModified': new Date(), 'orderItems' : this.getEmptyOrderItem(), 'TotalAmount': 10 };
       this.loading = false; 
     }
   }
@@ -58,5 +59,10 @@ export class OrderDetailComponent implements OnInit {
       this.location.back();
       this.notificationService.notify('success', `${res.id} added successfully`);
      });
+  }
+
+  getEmptyOrderItem(): OrderItem[] {
+     const x: OrderItem[] = [{ 'id' : '0', 'productId': '0', 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 }];
+     return x;
   }
 }

@@ -1,0 +1,15 @@
+<tr>
+<td>
+    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+      <option *ngFor="let product of products" value="{{product.id}}">
+        {{product.name}}
+      </option>
+    </select>
+</td>
+<td>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormUnit" placeholder="Unit">
+</td>
+<td>
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormQuantity" placeholder="Quantity">
+</td>
+</tr>

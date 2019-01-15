@@ -3,8 +3,8 @@ export interface Order {
     customerId: string;
     dateCreated: Date;
     dateIssued: Date;
-    dateModified: Date;
-    TotalAmount: string;
+  dateModified: Date;
+  TotalAmount: number;
     orderItems: OrderItem [];
 }
 
