@@ -15,7 +15,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log('configuration');
     this.configurationService.load();
   }
   isAuthorized() {
