@@ -37,8 +37,6 @@ export class OrderItemListComponent implements OnInit {
   }
 
   getTotalPrice(productId , quantity ): any {
-    console.log(productId);
-    console.log(quantity);
     if(this.products.filter(x => x.id === +productId).length === 0){
       return '-';
     }
