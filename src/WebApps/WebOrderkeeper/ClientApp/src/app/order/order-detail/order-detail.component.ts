@@ -38,12 +38,21 @@ export class OrderDetailComponent implements OnInit {
     }
 
     if (this.action === 'create') {
-      this.order =  { 'id': '0', 'customerId': '1', 'dateCreated': new Date(), 'dateIssued': new Date(), 'dateModified': new Date(), 'orderItems' : this.getEmptyOrderItem(), 'TotalAmount': 10 };
-      this.loading = false; 
+      this.order =  {
+        'id': '0',
+        'customerId': '1',
+        'dateCreated': new Date(),
+        'dateIssued': new Date(),
+        'dateModified': new Date(),
+        'orderItems' : [this.getEmptyOrderItem()],
+        'TotalAmount': 10
+      };
+      this.loading = false;
     }
   }
 
   onUpdate() {
+    debugger;
     this.loading = true;
     this.orderService.updateOrder(this.order).subscribe(res => {
       this.loading = false;
@@ -61,8 +70,10 @@ export class OrderDetailComponent implements OnInit {
      });
   }
 
-  getEmptyOrderItem(): OrderItem[] {
-     const x: OrderItem[] = [{ 'id' : '0', 'productId': '0', 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 }];
-     return x;
+  onAddOrderItem() {
+    this.order.orderItems.push(this.getEmptyOrderItem());
+  }
+  getEmptyOrderItem(): OrderItem {
+     return { 'id' : '0', 'productId': '0', 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 };
   }
 }

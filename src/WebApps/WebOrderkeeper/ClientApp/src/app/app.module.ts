@@ -33,7 +33,7 @@ import { OrderManagementComponent } from './order/order-management.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 import { OrderService } from './order/order.service';
-import { OrderItemComponent } from './order/order-item/order-item.component';
+import { OrderItemListComponent } from './order/order-item-list/order-item-list.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ import { OrderItemComponent } from './order/order-item/order-item.component';
     OrderManagementComponent,
     OrderListComponent,
     OrderDetailComponent,
-    OrderItemComponent,
+    OrderItemListComponent,
   ],
   entryComponents: [ConfirmationModalComponent],
   imports: [

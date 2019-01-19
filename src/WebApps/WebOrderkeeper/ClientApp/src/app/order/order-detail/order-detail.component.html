@@ -13,21 +13,11 @@
     <label for="Customer">Customer</label>
     <input type="text" class="form-control" id="Customer" [(ngModel)]="order.customerId" required>
   </div>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Product</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Unit</th>
-        <th scope="col">Price</th>
-      </tr>
-    </thead>
-    <div *ngFor="let orderItem of order.orderItems">
-      <app-order-item [orderItem]="orderItem" (deleteOrderRequested)="deleteOrder($event)"></app-order-item>
-    </div>
-    <tbody></tbody>
-  </table>
-  
+  <ng-template [ngIf]="order.orderItems">
+    <app-order-item-list [orderItemList]="order.orderItems"></app-order-item-list>
+    <button type="submit" class="btn btn-success" (click)="onAddOrderItem()">Add Product</button>
+  </ng-template>
+  <hr />
   <button type="submit" *ngIf="action === 'edit'" class="btn btn-success" (click)="onUpdate()">Save Changes</button>
   <button type="submit" *ngIf="action === 'create'" class="btn btn-success" (click)="onCreate()">Save Changes</button>
 </ng-template>
