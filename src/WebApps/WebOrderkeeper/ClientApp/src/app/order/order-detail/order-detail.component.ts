@@ -39,8 +39,8 @@ export class OrderDetailComponent implements OnInit {
 
     if (this.action === 'create') {
       this.order =  {
-        'id': '0',
-        'customerId': '1',
+        'id': 0,
+        'customerId': 1,
         'dateCreated': new Date(),
         'dateIssued': new Date(),
         'dateModified': new Date(),
@@ -74,6 +74,6 @@ export class OrderDetailComponent implements OnInit {
     this.order.orderItems.push(this.getEmptyOrderItem());
   }
   getEmptyOrderItem(): OrderItem {
-     return { 'id' : '0', 'productId': '0', 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 };
+     return { 'id' : 0, 'productId': 0, 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 };
   }
 }

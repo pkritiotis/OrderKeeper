@@ -9,9 +9,9 @@ namespace Ordering.API.Model
     public interface IOrderRepository
     {
         Task<Order> AddOrderAsync(Order order);
-        Task<Order> GetOrderAsync(string orderId);
+        Task<Order> GetOrderAsync(long orderId);
         Task<Order> UpdateOrderAsync(Order order);
-        Task<bool> DeleteOrderAsync(string orderId);
+        Task<bool> DeleteOrderAsync(long orderId);
         Task<IEnumerable<Order>> GetOrdersAsync();
     }
 }

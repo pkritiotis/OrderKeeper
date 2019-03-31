@@ -44,7 +44,7 @@ export class OrderItemListComponent implements OnInit {
    }
 
   onDelete(orderItem: OrderItem) {
-    this.deleteOrderItemRequested.emit(orderItem);
+    //this.deleteOrderItemRequested.emit(orderItem);
   }
 
 }

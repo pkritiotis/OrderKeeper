@@ -20,7 +20,7 @@ namespace OrderManagement.API.Repository
             return orderResult.Entity;
         }
 
-        public async Task<bool> DeleteOrderAsync(string orderId)
+        public async Task<bool> DeleteOrderAsync(long orderId)
         {
             var order = new Order { Id = orderId };
             _orderContext.Order.Attach(order);
@@ -28,7 +28,7 @@ namespace OrderManagement.API.Repository
             return await _orderContext.SaveChangesAsync() >0;
         }
 
-        public async Task<Order> GetOrderAsync(string orderId)
+        public async Task<Order> GetOrderAsync(long orderId)
         {
             return await _orderContext.Order.SingleAsync(c => c.Id == orderId);
         }

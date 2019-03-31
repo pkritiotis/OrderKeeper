@@ -27,7 +27,7 @@ namespace Ordering.API.Controllers
 
         [Route("{orderId}")]
         [HttpGet]
-        public async Task<IActionResult> GetOrder(string orderId)
+        public async Task<IActionResult> GetOrder(long orderId)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace Ordering.API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteOrder(string orderId)
+        public async Task<IActionResult> DeleteOrder(long orderId)
         {
             try
             {

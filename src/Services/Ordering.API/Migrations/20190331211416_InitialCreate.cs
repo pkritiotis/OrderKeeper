@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ordering.API.Migrations
 {
@@ -12,11 +12,12 @@ namespace Ordering.API.Migrations
                 name: "Order",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
-                    DateIssued = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
+                    DateIssued = table.Column<DateTime>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: false),
                     TotalAmount = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
@@ -28,14 +29,15 @@ namespace Ordering.API.Migrations
                 name: "OrderItem",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    InitialUnitPrice = table.Column<decimal>(nullable: false),
-                    OrderId = table.Column<string>(nullable: true),
-                    PictureUrl = table.Column<string>(nullable: true),
-                    ProductId = table.Column<string>(nullable: true),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductId = table.Column<int>(nullable: false),
                     ProductName = table.Column<string>(nullable: true),
+                    UnitPrice = table.Column<decimal>(nullable: false),
+                    InitialUnitPrice = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    UnitPrice = table.Column<decimal>(nullable: false)
+                    PictureUrl = table.Column<string>(nullable: true),
+                    OrderId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
