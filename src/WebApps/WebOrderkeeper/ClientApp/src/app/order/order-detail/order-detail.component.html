@@ -11,7 +11,13 @@
 
   <div class="form-group">
     <label for="Customer">Customer</label>
-    <input type="text" class="form-control" id="Customer" [(ngModel)]="order.customerId" required>
+    <input type="text" class="form-control" id="Customer" [(ngModel)]="order.customerId" *ngIf="customers === null" required>
+    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" *ngIf="customers != null" id="inlineFormCustomSelect" [(ngModel)]="order.customerId">
+      <option value="-1" [attr.selected]="order.customerId == customer.id ? true : null" >Select Customer</option>
+        <option *ngFor="let customer of customers" value="{{customer.id}}" [attr.selected]="order.customerId == customer.id ? true : null" >
+        {{customer.fullName}}
+      </option>
+    </select>
   </div>
   <ng-template [ngIf]="order.orderItems">
     <app-order-item-list [orderItemList]="order.orderItems"></app-order-item-list>

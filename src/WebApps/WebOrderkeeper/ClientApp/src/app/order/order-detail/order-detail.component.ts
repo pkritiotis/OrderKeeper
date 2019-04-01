@@ -1,3 +1,4 @@
+import { CustomerService } from './../../customer/customer.service';
 import { OrderItem } from './../../shared/models/order.model';
 import { OrderService } from '../order.service';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Order } from '../../shared/models/order.model';
 import { Location } from '@angular/common';
 import { NotifierService } from 'angular-notifier';
+import { Customer } from '../../shared/models/customer.model';
 
 @Component({
   selector: 'app-order-detail',
@@ -16,14 +18,19 @@ export class OrderDetailComponent implements OnInit {
   order: Order;
   loading: boolean;
   action: string;
+  customers: Customer[];
+
   constructor(private route: ActivatedRoute,
-             private orderService: OrderService,
-             private location: Location,
-             private notificationService: NotifierService
-             ) { }
+    private orderService: OrderService,
+    private location: Location,
+    private notificationService: NotifierService,
+    private customerService: CustomerService
+  ) { }
 
   ngOnInit() {
     this.loading = true;
+
+    this.loadCustomers();
     this.action = this.route.snapshot.data['action'];
     if (this.action === 'edit') {
       const id = this.route.snapshot.paramMap.get('id');
@@ -38,21 +45,26 @@ export class OrderDetailComponent implements OnInit {
     }
 
     if (this.action === 'create') {
-      this.order =  {
+      this.order = {
         'id': 0,
-        'customerId': 1,
+        'customerId': -1,
         'dateCreated': new Date(),
         'dateIssued': new Date(),
         'dateModified': new Date(),
-        'orderItems' : [this.getEmptyOrderItem()],
+        'orderItems': [this.getEmptyOrderItem()],
         'TotalAmount': 10
       };
       this.loading = false;
     }
   }
 
+  loadCustomers() {
+    this.customerService.customersReady$.subscribe(() => {
+      this.customerService.getCustomers().subscribe(x => { this.customers = x; console.log(JSON.stringify(this.customers)); });
+    });
+  }
+
   onUpdate() {
-    debugger;
     this.loading = true;
     this.orderService.updateOrder(this.order).subscribe(res => {
       this.loading = false;
@@ -67,13 +79,13 @@ export class OrderDetailComponent implements OnInit {
       this.loading = false;
       this.location.back();
       this.notificationService.notify('success', `${res.id} added successfully`);
-     });
+    });
   }
 
   onAddOrderItem() {
     this.order.orderItems.push(this.getEmptyOrderItem());
   }
   getEmptyOrderItem(): OrderItem {
-     return { 'id' : 0, 'productId': 0, 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 };
+    return { 'id': 0, 'productId': 0, 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 };
   }
 }
