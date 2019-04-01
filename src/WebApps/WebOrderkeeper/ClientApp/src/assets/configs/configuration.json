@@ -1,0 +1,6 @@
+{
+  "identityUrl": "http://localhost:51947",
+  "customerUrl": "http://localhost:58882",
+  "productUrl": "http://localhost:52343",
+  "orderUrl": "http://localhost:53926"
+}

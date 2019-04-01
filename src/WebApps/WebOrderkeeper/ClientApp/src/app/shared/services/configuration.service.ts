@@ -24,7 +24,7 @@ export class ConfigurationService {
 
     load() {
         const baseURI = document.baseURI.endsWith('/') ? document.baseURI : `${document.baseURI}/`;
-        const url = `${baseURI}api/Configuration`;
+        const url = `${baseURI}assets/configs/configuration.json`;
         this.http.get(url).subscribe((response: Response) => {
             this.serverSettings = response.json();
             this.storageService.store('IdentityUrl', this.serverSettings.identityUrl);
