@@ -43,7 +43,7 @@ namespace Ordering.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddOrder(Order order)
+        public async Task<IActionResult> AddOrder([FromBody]Order order)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Ordering.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateOrder(Order order)
+        public async Task<IActionResult> UpdateOrder([FromBody]Order order)
         {
             try
             {
