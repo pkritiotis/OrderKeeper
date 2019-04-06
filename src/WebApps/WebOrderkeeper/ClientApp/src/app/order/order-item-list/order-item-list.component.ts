@@ -10,38 +10,32 @@ import { Product } from '../../shared/models/product.model';
 export class OrderItemListComponent implements OnInit {
 
   @Input() orderItemList: OrderItem[];
+  @Input() availableProductList: Product[];
   @Output() orderItemListChanged = new EventEmitter();
 
   constructor() { }
 
-  products: Product[] = [{'id': 1,
-  'name': 'Gypsofilla',
-  'price': 11.5,
-  'priceCurrency': 'Euro',
-  'stockNumber': 12,
-  'unit': 'Bunch',
-  },
-  {'id': 2,
-  'name': 'Helianthus',
-  'price': 1.5,
-  'priceCurrency': 'Euro',
-  'stockNumber': 9,
-  'unit': 'Bunch',
-  }];
-
   ngOnInit() {
-   }
+  }
 
-  onChange(){
+  onChange() {
     this.orderItemListChanged.emit();
   }
 
-  getTotalPrice(productId , quantity ): any {
-    if(this.products.filter(x => x.id === +productId).length === 0){
+  getTotalPrice(productId, quantity): any {
+    if (!this.availableProductList || this.availableProductList.length === 0 ||
+       this.availableProductList.filter(x => x.id === +productId).length === 0) {
       return '-';
     }
-    return this.products.filter(x => x.id === +productId)[0].price * quantity;
-   }
+    return this.availableProductList.filter(x => x.id === +productId)[0].price * quantity;
+  }
+  getUnit(productId): any {
+    return this.availableProductList.filter(x => x.id === +productId)[0].unit;
+  }
+
+  getInitialUnitValue(productId): any {
+    return this.availableProductList.filter(x => x.id === +productId)[0].price;
+  }
 
   onDelete(orderItem: OrderItem) {
     //this.deleteOrderItemRequested.emit(orderItem);

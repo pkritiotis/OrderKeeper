@@ -6,21 +6,23 @@
   <h2 *ngIf="action === 'create'">Add new order</h2>
   <div class="form-group">
     <label for="Id">Id</label>
-    <input type="text" class="form-control" id="Id" [(ngModel)]="order.id" required>
+    <input type="text" class="form-control" id="Id" [(ngModel)]="order.id" readonly>
   </div>
 
   <div class="form-group">
     <label for="Customer">Customer</label>
     <input type="text" class="form-control" id="Customer" [(ngModel)]="order.customerId" *ngIf="customers === null" required>
-    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" *ngIf="customers != null" id="inlineFormCustomSelect" [(ngModel)]="order.customerId">
-      <option value="-1" [attr.selected]="order.customerId == customer.id ? true : null" >Select Customer</option>
-        <option *ngFor="let customer of customers" value="{{customer.id}}" [attr.selected]="order.customerId == customer.id ? true : null" >
+    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" *ngIf="customers != null" id="inlineFormCustomSelect"
+      [(ngModel)]="order.customerId">
+      <option value="-1" [attr.selected]="order.customerId == -1 ? true : null">Select Customer</option>
+      <option *ngFor="let customer of customers" value="{{customer.id}}"
+        [attr.selected]="order.customerId == customer.id ? true : null">
         {{customer.fullName}}
       </option>
     </select>
   </div>
   <ng-template [ngIf]="order.orderItems">
-    <app-order-item-list [orderItemList]="order.orderItems"></app-order-item-list>
+    <app-order-item-list [orderItemList]="order.orderItems" [availableProductList]="products"></app-order-item-list>
     <button type="submit" class="btn btn-success" (click)="onAddOrderItem()">Add Product</button>
   </ng-template>
   <hr />

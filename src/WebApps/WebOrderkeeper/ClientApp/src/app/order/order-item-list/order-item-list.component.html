@@ -7,20 +7,27 @@
       <th scope="col">Price</th>
     </tr>
   </thead>
-  <tr *ngFor="let orderItem of orderItemList" >
+  <tr *ngFor="let orderItem of orderItemList">
     <td>
-      <select #selectedProduct class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" (ngModelChange)="onChange()" [(ngModel)]="orderItem.productId">
-        <option *ngFor="let product of products" value="{{product.id}}" [attr.selected]="orderItem.productId == product.id ? true : null" >
+      <select #selectedProduct class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect"
+        (ngModelChange)="onChange()" [(ngModel)]="orderItem.productId">
+        <option value="-1" [attr.selected]="orderItem.productId == -1 ? true : null"> Select a product</option>
+        <option *ngFor="let product of availableProductList" value="{{product.id}}"
+          [attr.selected]="orderItem.productId == product.id ? true : null">
           {{product.name}}
         </option>
       </select>
     </td>
     <td>
-      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormQuantity" placeholder="Quantity" (ngModelChange)="onChange()" (ngModelChange)="onChange()"
-        [(ngModel)]="orderItem.quantity">
+      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormQuantity" placeholder="Quantity"
+        (ngModelChange)="onChange()" (ngModelChange)="onChange()" [(ngModel)]="orderItem.quantity">
     </td>
     <td>
-      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormUnit" placeholder="Unit" (ngModelChange)="onChange()" [(ngModel)]="orderItem.unit">
+      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormUnit" placeholder="UnitPrice"
+        (ngModelChange)="onChange()" [(ngModel)]="orderItem.unitPrice" value="{{ getInitialUnitValue(orderItem.productId) }}">
+    </td>
+    <td>
+       <div [(ngModel)]="orderItem.unit"> {{getUnit(orderItem.productId)}}</div>
     </td>
     <td>
       {{ getTotalPrice(orderItem.productId,orderItem.quantity) }}

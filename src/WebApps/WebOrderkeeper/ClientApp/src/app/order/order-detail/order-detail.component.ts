@@ -1,3 +1,4 @@
+import { ProductService } from './../../product/product.service';
 import { CustomerService } from './../../customer/customer.service';
 import { OrderItem } from './../../shared/models/order.model';
 import { OrderService } from '../order.service';
@@ -7,6 +8,7 @@ import { Order } from '../../shared/models/order.model';
 import { Location } from '@angular/common';
 import { NotifierService } from 'angular-notifier';
 import { Customer } from '../../shared/models/customer.model';
+import { Product } from '../../shared/models/product.model';
 
 @Component({
   selector: 'app-order-detail',
@@ -19,18 +21,21 @@ export class OrderDetailComponent implements OnInit {
   loading: boolean;
   action: string;
   customers: Customer[];
+  products: Product[];
 
   constructor(private route: ActivatedRoute,
     private orderService: OrderService,
     private location: Location,
     private notificationService: NotifierService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private productService: ProductService
   ) { }
 
   ngOnInit() {
     this.loading = true;
 
     this.loadCustomers();
+    this.loadAvailableProducts();
     this.action = this.route.snapshot.data['action'];
     if (this.action === 'edit') {
       const id = this.route.snapshot.paramMap.get('id');
@@ -46,7 +51,6 @@ export class OrderDetailComponent implements OnInit {
 
     if (this.action === 'create') {
       this.order = {
-        'id': 0,
         'customerId': -1,
         'dateCreated': new Date(),
         'dateIssued': new Date(),
@@ -61,6 +65,12 @@ export class OrderDetailComponent implements OnInit {
   loadCustomers() {
     this.customerService.customersReady$.subscribe(() => {
       this.customerService.getCustomers().subscribe(x => { this.customers = x; console.log(JSON.stringify(this.customers)); });
+    });
+  }
+
+  loadAvailableProducts() {
+    this.productService.productsReady$.subscribe(() => {
+      this.productService.getProducts().subscribe(x => {this.products = x; });
     });
   }
 
@@ -81,11 +91,12 @@ export class OrderDetailComponent implements OnInit {
       this.notificationService.notify('success', `${res.id} added successfully`);
     });
   }
-
+ 
   onAddOrderItem() {
     this.order.orderItems.push(this.getEmptyOrderItem());
   }
+
   getEmptyOrderItem(): OrderItem {
-    return { 'id': 0, 'productId': 0, 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 };
+    return { 'productId': -1, 'productName': '0', 'unitPrice': 0, 'initialUnitPrice': 0, 'quantity': 0 };
   }
 }
