@@ -30,7 +30,7 @@ namespace OrderManagement.API.Repository
 
         public async Task<Order> GetOrderAsync(long orderId)
         {
-            return await _orderContext.Order.SingleAsync(c => c.Id == orderId);
+            return await _orderContext.Order.Include(x=>x.OrderItems).SingleAsync(c => c.Id == orderId);
         }
 
         public async Task<IEnumerable<Order>> GetOrdersAsync()
